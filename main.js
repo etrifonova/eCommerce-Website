@@ -1,3 +1,5 @@
+// STOPPED AT 50:26
+
 // Cart
 let cartIcon = document.querySelector('#cart-icon');
 let cart = document.querySelector('.cart');
@@ -34,6 +36,12 @@ function ready() {
     let input = quantityInputs[i];
     input.addEventListener('change', quantityChanged);
   }
+  // Add to cart 
+  let addCart = document.getElementsByClassName('add-cart');
+  for (let i = 0; i < addCart.length; i++) {
+    let button = addCart[i];
+    button.addEventListener('click', addCartClicked);
+  }
 }
 
 // Remove items from cart 
@@ -44,11 +52,31 @@ function removeCartItem(event) {
 }
 // Quantity Changes
 function quantityChanged(event) {
-  var input = event.target;
+  let input = event.target;
   if (isNaN(input.value) || input.value <= 0) {
     input.value = 1;
   }
   updateTotal();
+}
+
+// Add to cart
+function addCartClicked(event) {
+  let button = event.target;
+  let shopProducts = button.parentElement;
+  let title = shopProducts.getElementsByClassName('product-title')[0].innerText;
+  let price = shopProducts.getElementsByClassName('price')[0].innerText;
+  let productImg = shopProducts.getElementsByClassName('product-img')[0].src;
+  addProductToCart(title, price, productImg);
+  updateTotal();
+}
+function addProductToCart(title, price, productImg) {
+  let cartShopBox = document.createElement('div');
+  // cartShopBox.classList.add('cart-box');
+  let cartItems = document.getElementsByClassName('cart-content')[0];
+  let cartItemsNames = cartItems.getElementsByClassName('cart-product-title');
+  for (let i = 0; i < cartItemsNames.length; i++) {
+    alert('You have already added this item to the cart');
+  }
 }
 
 // Update total
@@ -64,6 +92,9 @@ function updateTotal() {
     // The parseFloat() function parses a string argument and returns a floating point number.
     let quantity = quantityElement.value;
     total = total + price * quantity;
+    // If price contains cents (kopeks in my case)
+    total = Math.round(total * 100) / 100;
+
     document.getElementsByClassName('total-price')[0].innerText = '₽' + total;
     
   }
