@@ -1,5 +1,3 @@
-// STOPPED AT 50:26
-
 // Cart
 let cartIcon = document.querySelector('#cart-icon');
 let cart = document.querySelector('.cart');
@@ -42,6 +40,18 @@ function ready() {
     let button = addCart[i];
     button.addEventListener('click', addCartClicked);
   }
+  // Buy button
+  document.getElementsByClassName('btn-buy')[0].addEventListener('click', buyButtonClicked);
+}
+// Buy button
+function buyButtonClicked() {
+  alert('Your order is placed');
+  let cartContent = document.getElementsByClassName('cart-content');
+  while (cartContent.hasChildNodes()) {
+    cartContent.removeChild(cartContent.firstChild )
+  }
+  // updateTotal();
+  // непонятно, зачем опять вызывается функция updateTotal() - итоговая стоимость подсчитывается даже без ее вызова здесь
 }
 
 // Remove items from cart 
@@ -69,15 +79,34 @@ function addCartClicked(event) {
   addProductToCart(title, price, productImg);
   updateTotal();
 }
+
+
+
 function addProductToCart(title, price, productImg) {
   let cartShopBox = document.createElement('div');
-  // cartShopBox.classList.add('cart-box');
   let cartItems = document.getElementsByClassName('cart-content')[0];
   let cartItemsNames = cartItems.getElementsByClassName('cart-product-title');
+  cartShopBox.classList.add('cart-box');
   for (let i = 0; i < cartItemsNames.length; i++) {
-    alert('You have already added this item to the cart');
+    if (cartItemsNames[i].innerText == title) {
+      return;
+    }
   }
+let cartBoxContent = `
+                    <img src="${productImg}" alt="Черная футболка" class="cart-img">
+                    <div class="detail-box">
+                      <div class="cart-product-title">${title}</div>
+                      <div class="cart-price">${price}</div>
+                      <input type="number" value="1" class="cart-quantity">
+                    </div>
+                    <i class='bx bxs-trash-alt cart-remove'></i>`;
+cartShopBox.innerHTML = cartBoxContent;
+cartItems.append(cartShopBox);
+cartShopBox.getElementsByClassName('cart-remove')[0].addEventListener('click', removeCartItem);
+cartShopBox.getElementsByClassName('cart-quantity')[0].addEventListener('change', quantityChanged);
+
 }
+
 
 // Update total
 function updateTotal() {
@@ -92,11 +121,11 @@ function updateTotal() {
     // The parseFloat() function parses a string argument and returns a floating point number.
     let quantity = quantityElement.value;
     total = total + price * quantity;
+  }
     // If price contains cents (kopeks in my case)
     total = Math.round(total * 100) / 100;
 
     document.getElementsByClassName('total-price')[0].innerText = '₽' + total;
     
-  }
 
 }
