@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Product Page</title>
+  <meta name="description" content="online-store">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./assets/styles.css">
+  <!-- Box Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="img">
+      <img src="./assets/img/blue-shirt-1.jpg" alt="Синяя футболка">
+    </div>
+    <div class="info">
+      <h2>Синяя футболка</h2>
+      <p>₽1999</p>
+
+      <!-- Size selection -->
+      <div class="size">
+        <h3>SIZE</h3>
+        <div class="select">
+          <span class="select-txt">Select</span>
+          <i class='bx bx-chevron-down'></i>
+        </div>
+        <div class="option-list">
+          <div class="option">
+            <span class="option-txt">Small</span>
+          </div>
+          <div class="option">
+            <span class="option-txt">Medium</span>
+          </div>
+          <div class="option">
+            <span class="option-txt">Large</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quantity -->
+      <div class="qty">
+        <h3>Quantity</h3>
+        <input type="number" value="1" min="1">
+      </div>
+
+      <!-- Buttons -->
+      <div class="product-cart">
+        <button>Добавить в корзину</button>
+        <i class="bx bx-shopping-bag like"></i>
+      </div>
+      <div class="buy">
+        <button>Купить сейчас</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="./product.js"></script>
+      
+</body>
+</html>
